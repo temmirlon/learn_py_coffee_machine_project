@@ -69,19 +69,30 @@ def prompt_user():
             try:
                 if prompt not in MENU.keys():
                     raise ValueError("We don't have such a coffee. Try Again.")
+                
                 elif check_recourses(prompt):
-                    print("Please insert the coins.")
-                    total = int(input("How many quarters?: ")) * 0.25
-                    total += int(input("How many dimes?: ")) * 0.10
-                    total += int(input("How many nickles?: ")) * 0.05
-                    total += int(input("How many pennies?: ")) * 0.01
-                    if total >= MENU[prompt]['cost']:
-                        money_in_change = total - MENU[prompt]['cost']
-                        print(f"Here is ${money_in_change} in change.")
-                        make_coffee(prompt)
-                        profit += MENU[prompt]["cost"]
+                    
+                    while True:
+
+                        print("Please insert the coins.")
+                        total = int(input("How many quarters?: ")) * 0.25
+                        total += int(input("How many dimes?: ")) * 0.10
+                        total += int(input("How many nickles?: ")) * 0.05
+                        total += int(input("How many pennies?: ")) * 0.01
+
+                        if total >= MENU[prompt]['cost']:
+                            money_in_change = total - MENU[prompt]['cost']
+                            print(f"Here is ${money_in_change} in change.")
+                            make_coffee(prompt)
+                            profit += MENU[prompt]["cost"]
+                            break
+                        
+                        else:
+                            print("Not enough money.")
+
                 else:
                     print(f"Sorry, not enough ingredients.")
+
             except ValueError as e:
                 print(e)
 
